@@ -1,0 +1,46 @@
+EQUIVALENCE (direct chunked enumeration vs cache path; asserted per parameter tensor for every chunk size used; OOM recorded, never timed)
+arm  class  chunk_rows status  rel_loss_diff      worst_param  worst_err_over_tol  subsets  usable
+  W single         256     ok      8.904e-08   query.mask_vec            0.002553     2002    1004
+  W single        1024     ok              0   query.mask_vec            0.002043     2002    1004
+  W  small         256     ok      4.747e-07 readout.5.weight            0.001729     5869    2614
+  W  small        1024     ok      3.021e-07 readout.1.weight             0.00171     5869    2614
+  W medium         256     ok      1.663e-07 readout.1.weight            0.007043    40897   22189
+  W medium        1024     ok      1.109e-08    encoder.w_val            0.007413    40897   22189
+  W   full         256     ok       8.46e-08 readout.3.weight            0.007381    63394   29048
+  W   full        1024     ok       8.46e-08 readout.1.weight              0.0048    63394   29048
+  W   full        4096     ok       8.46e-08   readout.3.bias            0.004658    63394   29048
+  T single         256     ok      8.757e-08 readout.1.weight            0.003019     4095    4095
+  T single        1024     ok              0   query.mask_vec            0.003868     4095    4095
+  T  small         256     ok      2.964e-08    encoder.b_val             0.00435    12285   12285
+  T  small        1024     ok      2.964e-08    encoder.b_val            0.003262    12285   12285
+  T medium         256     ok      4.944e-07    encoder.w_val             0.01549    85995   85995
+  T medium        1024     ok      6.681e-08    encoder.w_val             0.01247    85995   85995
+  T   full         256     ok      1.675e-07 readout.1.weight            0.009903   131040  131040
+  T   full        1024     ok              0 readout.3.weight            0.005491   131040  131040
+  T   full        4096     ok       3.35e-07 readout.1.weight            0.003961   131040  131040
+
+EXECUTION COST BY CLASS (forward and backward with prepared inputs; preparation reported separately; direct at direct_chunk)
+arm  class  direct_chunk  cache_exec_s  cache_plan_s  direct_exec_s  direct_prep_s  shared_trie_s  exec_ratio  cache_gib  direct_gib  enumerated  evaluated
+  W single          1024       0.01945     0.0001565        0.01018        0.00379        0.01502      0.5235     0.3272      0.2929   3.188e+05  2.019e+05
+  W  small          1024        0.0274     0.0003096        0.01825        0.01173        0.04506      0.6661     0.5651      0.3148   1.007e+06  4.162e+05
+  W medium          1024       0.08927      0.001603        0.09152        0.05006         0.1955       1.025      1.804      0.4042   4.224e+06  2.296e+06
+  W   full          1024        0.2141      0.003999         0.2236         0.1315         0.5047       1.044      2.647      0.5219   1.114e+07  5.455e+06
+  T single          1024       0.03382     0.0004315        0.01507      0.0008104       0.001358      0.4455     0.3103      0.2716   4.914e+04  4.914e+04
+  T  small          1024       0.03708     0.0008285        0.03369       0.002016      7.758e-05      0.9085     0.4853       0.291   1.228e+05  1.228e+05
+  T medium          1024       0.05527      0.003528         0.1599        0.01073      0.0003468       2.894      1.446      0.3723   6.224e+05  6.224e+05
+  T   full          1024        0.1038       0.01071         0.4089        0.02726      0.0008076       3.941       2.13      0.5025   1.572e+06  1.572e+06
+
+CHUNK SIZE SWEEP (full class)
+arm  chunk_rows  direct_exec_s  direct_gib status
+  W         256         0.4373      0.5023     ok
+  W        1024         0.2236      0.5219     ok
+  W        4096          0.186      0.5448     ok
+  T         256          1.304      0.5017     ok
+  T        1024         0.4089      0.5025     ok
+  T        4096         0.1888      0.5182     ok
+
+FORWARD AND BACKWARD HOURS PER EPOCH (class means times class counts: single 61,105, small 29,405, medium 4,794, full 31,463; full class at its best certified chunk, other classes at direct_chunk; no optimizer, evaluation or checkpoints)
+prep_plus_exec_ratio = (direct execution + direct serial preparation) / cache execution (which already contains its serial plan build); shared trie construction excluded
+arm  cache_exec_h  direct_exec_h  direct_best_chunk  direct_prep_h  shared_trie_h  exec_ratio  prep_plus_exec_ratio  run_reference_h
+  W         2.544          2.069               4096          1.376          5.294      0.8132                 1.354            3.107
+  T         1.857          2.394               4096         0.2828        0.03121       1.289                 1.441            2.011
