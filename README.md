@@ -3,7 +3,7 @@
 Release repository for the paper of that title. It holds the library source at the versions measured, the five notebooks that produced the paper's measurements and generated tables, the saved result files, the 18 benchmark inputs, the four pilot data extracts and a manifest of file hashes.
 
 Repository: https://github.com/jakemdrew/subset_cache_pub
-Release tag and commit: to be recorded at submission.
+Release tag: talg-submission. The commit is the one the tag points to, and the paper cites it.
 
 ## Module hashes
 

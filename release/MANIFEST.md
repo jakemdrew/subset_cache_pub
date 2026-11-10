@@ -1,6 +1,6 @@
 # Release manifest
 
-Generated 2026-11-10 12:57. Paths are relative to the release root. SHA256 is the full digest.
+Generated 2026-11-10 13:07. Paths are relative to the release root. SHA256 is the full digest.
 
 ## Module hashes
 
@@ -22,7 +22,7 @@ Full SHA256 of each library module as recorded in the pilot gate record before t
 
 | Path | Role | Bytes | SHA256 |
 |---|---|---|---|
-| README.md | release README | 19542 | d0ebbafc335458a40700f6bf2725c6259014d7b8929f18b9f2eae8db02b0f195 |
+| README.md | release README | 19583 | 80db66e9a1cdaf3dd7f2a8349ee50f29119534b16b9aa3a7e8aace9d3f3605c4 |
 | src/apriori/__init__.py | serialization helper | 0 | e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 |
 | src/apriori/serialization.py | serialization helper | 5429 | d3f1036aef823647c63dcb985bcbb99217e3c008bff9d70e80741cb7d9d88707 |
 | src/masked_concept_model.py | library and pilot source | 22834 | f6b49be2e07791e1e8f39729f881e4488a85943f8de35a84ebf83071d751f330 |
@@ -38,7 +38,7 @@ Full SHA256 of each library module as recorded in the pilot gate record before t
 | notebooks/V3 Benchmarks H100.ipynb | benchmark notebook, H100 | 155681 | ead5e2ad7cc12eb72e24eac14d20a498e61ef6d552f629c7500301ef52b15f3e |
 | notebooks/V3 Pilot 2080.ipynb | pilot notebook | 184072 | a62b0f4dcdcd2d1a3303f76a365c9fa583ae928b3b3d671b0313b8f5086c198e |
 | notebooks/V3_Benchmarks_Tables.ipynb | tables, paragraph and figure notebook | 157788 | c5975de91e1cc3aab48a337968ca6de2c117aa4ba46b75b044816ff57342565e |
-| notebooks/V3 Release Manifest.ipynb | release manifest notebook | 87143 | 561052bfa17453839ce913f58f83959a07690c937e392340d506b07328543ff9 |
+| notebooks/V3 Release Manifest.ipynb | release manifest notebook | 86146 | d538800d9bc84cbeda2c6d47ebb4020c0b66287d8006f856df2d799d5cbcd372 |
 | inputs/v2_fixed_size_run_comparison_attention_n300_M64000.pkl.lz4 | benchmark inputs | 5500887 | 2c465e03354342bb41455e6fbcfdda4e3e07c043cf757b7a92b0689829fbef8e |
 | inputs/v2_fixed_size_run_comparison_attention_n496_M64000.pkl.lz4 | benchmark inputs | 8538001 | 1f854c8f5390551002dae75167e71f7981e4a95ecd06be90d549e96bcc53db8d |
 | inputs/v2_limited_sharing_control_attention_n300_M64000.pkl.lz4 | benchmark inputs | 9343038 | 1d8c93617f2806604694c75d2c1bee022cf6d0586cb919f70a385a39854bb9ea |
