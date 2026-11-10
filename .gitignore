@@ -1,0 +1,5 @@
+﻿__pycache__/
+.ipynb_checkpoints/
+paper_subset_cache/
+pilot/runs/*_epoch1.pt
+pilot/runs/*_epoch2.pt

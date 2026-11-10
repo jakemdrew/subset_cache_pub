@@ -1,0 +1,18 @@
+\begin{table}[t]
+\caption{Paired differences at epoch 2, pooled, by band and by concept group. Targets is the number of held out targets in the group. Paired difference is the subset supervised model's mean held out Huber loss minus the baseline's on the same targets, negative favors the subset supervised model. Intervals are record clustered $95\%$ bootstrap percentile intervals, nominal for subgroups.}
+\label{tab:endpoints}
+\small
+\begin{tabular}{lrrl}
+\toprule
+Group & Targets & Paired difference & Interval \\
+\midrule
+pooled & 136,446 & $-0.0079$ & $[-0.0091, -0.0069]$ \\
+0 to 1 & 119,861 & $-0.0015$ & $[-0.0020, -0.0010]$ \\
+1 to 3 & 14,846 & $-0.0471$ & $[-0.0533, -0.0408]$ \\
+3 to 10 & 1,739 & $-0.1169$ & $[-0.1587, -0.0731]$ \\
+common & 111,029 & $-0.0084$ & $[-0.0096, -0.0073]$ \\
+rare & 18,008 & $-0.0048$ & $[-0.0076, -0.0020]$ \\
+unseen & 7,409 & $-0.0081$ & $[-0.0127, -0.0039]$ \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,33 @@
+\begin{table}[tbp]
+\caption{Main results, attention benchmarks. Median execution time in milliseconds of the cache and the fastest timed direct method, run sampler, $n = 300$ and $496$. Each row is one input, identical on both machines. $M$ is the requested budget, $\lambda$ the requested run length, $P$ the number of subsets and $\rho = N / F$ the reuse ratio. Eager rows compare the cache with the fastest of nine direct combinations launched kernel by kernel. Replay rows compare cache replay with the fastest of six masked attention replays, each captured once as a CUDA graph. Preparation and replay setup are excluded (Table~\ref{tab:replay_setup}). Speedup is Direct divided by Cache. OOM means the cache ran out of memory. In every row, the requested run length is $\lambda = 10n$. Key names the fastest direct combination. Masked attention, mathematical backend, is a unchunked, b at chunk size $4{,}096$ and c at $1{,}024$. The default backend is d, e and f, and gathered attention is g, h and i, in the same chunk size order. Replay rows use a to f. A blank Direct means no direct method was timed. A superscript $(g)$ on a Cache time means the cache ran out of memory unchunked and ran over $g$ groups of the sorted subsets. PyTorch was 2.5.1 on the 2080 and 2.8.0 on the H100, whose host was a 23.8 core share of an Intel Xeon Platinum 8480+.}
+\label{tab:main_attention}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{rrrr crrr crrr}
+\toprule
+ &  &  &  & \multicolumn{4}{c}{2080} & \multicolumn{4}{c}{H100} \\
+\cmidrule(lr){5-8} \cmidrule(lr){9-12}
+$n$ & $M$ & $P$ & $\rho$ & Key & Cache & Direct & Speedup & Key & Cache & Direct & Speedup \\
+\midrule
+\multicolumn{12}{c}{\textit{Eager}} \\
+300 & 64,000 & 63,000 & 0.0070 & b & 77.5 & 177.4 & 2.29 & e & 41.3 & 34.0 & 0.83 \\
+300 & 128,000 & 126,000 & 0.0070 & b & 130.8 & 340.3 & 2.60 & e & 49.9 & 64.6 & 1.29 \\
+300 & 256,000 & 255,000 & 0.0070 & b & 387.2 & 679.0 & 1.75 & e & 56.1 & 130.7 & 2.33 \\
+300 & 512,000 & 510,000 & 0.0070 & b & 523.3$^{(3)}$ & 1,347 & 2.57 & e & 106.4 & 253.4 & 2.38 \\
+496 & 64,000 & 59,520 & 0.0043 & b & 73.4 & 244.2 & 3.33 & b & 45.1 & 46.9 & 1.04 \\
+496 & 128,000 & 124,000 & 0.0042 & b & 133.1 & 492.2 & 3.70 & b & 55.7 & 96.5 & 1.73 \\
+496 & 256,000 & 252,960 & 0.0042 & b & 328.6 & 988.0 & 3.01 & b & 64.1 & 191.9 & 2.99 \\
+496 & 512,000 & 510,880 & 0.0042 & b & 507.7$^{(3)}$ & 1,982 & 3.90 & b & 109.6 & 382.5 & 3.49 \\
+\midrule
+\multicolumn{12}{c}{\textit{Replay}} \\
+300 & 64,000 & 63,000 & 0.0070 & b & 74.0 & 156.6 & 2.12 & d & 13.7 & 28.1 & 2.06 \\
+300 & 128,000 & 126,000 & 0.0070 & b & 94.3 & 308.9 & 3.27 & d & 23.9 & 55.9 & 2.33 \\
+300 & 256,000 & 255,000 & 0.0070 & b & OOM & 624.8 &  & d & 44.5 & 111.7 & 2.51 \\
+300 & 512,000 & 510,000 & 0.0070 &  & OOM &  &  & d & 83.3 & 223.6 & 2.68 \\
+496 & 64,000 & 59,520 & 0.0043 & b & 76.4 & 215.3 & 2.82 & b & 19.0 & 41.5 & 2.19 \\
+496 & 128,000 & 124,000 & 0.0042 & b & 94.9 & 449.1 & 4.73 & b & 25.5 & 86.5 & 3.39 \\
+496 & 256,000 & 252,960 & 0.0042 & b & OOM & 915.2 &  & b & 46.1 & 176.1 & 3.82 \\
+496 & 512,000 & 510,880 & 0.0042 &  & OOM &  &  & b & 85.6 & 355.3 & 4.15 \\
+\bottomrule
+\end{tabular}
+\end{table}

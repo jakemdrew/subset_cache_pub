@@ -1,0 +1,25 @@
+\begin{table}[tbp]
+\caption{Boundary and sampler comparison. The full power set rows are the small record boundary at $n = 14$ and $16$. The fixed size run sampler rows use the sampler of Section~\ref{sec:counting:sampler}. $M$ is the requested budget, $P$ the number of subsets and $\rho = N / F$ the reuse ratio. Eager rows time calls launched kernel by kernel. Replay rows time one replay of a call captured once as a CUDA graph. Times are medians in milliseconds, and Speedup is Direct divided by Cache. OOM means the cache method ran out of memory. Key names the fastest direct combination. Masked attention, mathematical backend, is a unchunked, b at chunk size $4{,}096$ and c at $1{,}024$. The default backend is d, e and f, and gathered attention is g, h and i, in the same chunk size order. Replay rows use a to f.}
+\label{tab:boundary}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{lrrrr crrr crrr}
+\toprule
+ &  &  &  &  & \multicolumn{4}{c}{2080} & \multicolumn{4}{c}{H100} \\
+\cmidrule(lr){6-9} \cmidrule(lr){10-13}
+Subset selection & $n$ & $M$ & $P$ & $\rho$ & Key & Cache & Direct & Speedup & Key & Cache & Direct & Speedup \\
+\midrule
+\multicolumn{13}{c}{\textit{Eager}} \\
+full power set & 14 & 16,383 & 16,383 & 0.1428 & c & 40.1 & 22.6 & 0.56 & a & 7.0 & 4.0 & 0.57 \\
+full power set & 16 & 65,535 & 65,535 & 0.1250 & b & 82.6 & 71.7 & 0.87 & a & 15.8 & 12.8 & 0.81 \\
+fixed size run sampler & 300 & 64,000 & 64,000 & 0.1552 & b & 138.9 & 179.9 & 1.30 & e & 34.5 & 34.5 & 1.00 \\
+fixed size run sampler & 496 & 64,000 & 64,000 & 0.1551 & b & 139.1 & 262.7 & 1.89 & b & 31.2 & 49.9 & 1.60 \\
+\midrule
+\multicolumn{13}{c}{\textit{Replay}} \\
+full power set & 14 & 16,383 & 16,383 & 0.1428 & a & 28.5 & 16.4 & 0.57 & a & 3.1 & 2.5 & 0.81 \\
+full power set & 16 & 65,535 & 65,535 & 0.1250 & d & 74.8 & 73.2 & 0.98 & a & 10.7 & 9.5 & 0.89 \\
+fixed size run sampler & 300 & 64,000 & 64,000 & 0.1552 & b & 112.7 & 159.0 & 1.41 & d & 26.0 & 28.5 & 1.10 \\
+fixed size run sampler & 496 & 64,000 & 64,000 & 0.1551 & b & 112.4 & 231.4 & 2.06 & b & 26.1 & 44.5 & 1.71 \\
+\bottomrule
+\end{tabular}
+\end{table}

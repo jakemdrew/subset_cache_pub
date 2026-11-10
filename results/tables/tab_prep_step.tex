@@ -1,0 +1,20 @@
+\begin{table}[tbp]
+\caption{Preparation and memory for the training step benchmarks of Table~\ref{tab:main_step}, same rows and order. Training step rows have no synthetic input generation, the model and its state come from the file, so the Input column is omitted. Preparation is in milliseconds, each component the median of five repeats, blank if fewer completed. Input is synthetic input generation, $Q$, $K$, $V$ and $W$ from the seed, the same work for every method, reported once and excluded from the method columns. Cache and Direct are method preparation, the sum of the component medians the method needs, not an end to end timing. On these run sampler rows Cache is trie generation from the run descriptor by the successor rule, level plan construction and transfer to the GPU; the fixed size run and individual sampler rows of Tables~\ref{tab:boundary} and~\ref{tab:control} regenerate the subset list and build the trie from it. Direct is the subset list regenerated from the key and, for a masked attention comparator, the $P \times n$ mask on the CPU. Memory is the median peak GPU memory allocated during execution, in MiB. OOM means the cache ran out of memory. In every row, the requested run length is $\lambda = 10n$. On a row marked $(g)$ the cache ran over $g$ groups after its unchunked call ran out of memory. Its Cache preparation is a single timing, not a median of five, the one build of the $g$ group tries from the row's rank intervals with their plans and transfers; the interval reconstruction itself, microseconds, is outside that clock. Its memory is that of the grouped run.}
+\label{tab:prep_step}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{rr rrrr rrrr}
+\toprule
+ &  & \multicolumn{4}{c}{2080} & \multicolumn{4}{c}{H100} \\
+\cmidrule(lr){3-6} \cmidrule(lr){7-10}
+ &  & \multicolumn{2}{c}{Preparation, ms} & \multicolumn{2}{c}{Memory, MiB} & \multicolumn{2}{c}{Preparation, ms} & \multicolumn{2}{c}{Memory, MiB} \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-8} \cmidrule(lr){9-10}
+$n$ & $M$ & Cache & Direct & Cache & Direct & Cache & Direct & Cache & Direct \\
+\midrule
+300 & 64,000 & 56.9 & 2,814 & 1,659 & 691 & 40.9 & 1,433 & 1,806 & 3,367 \\
+300 & 512,000 & 636.7$^{(3)}$ & 23,102 & 4,195 & 695 & 255.4 & 11,187 & 12,178 & 25,578 \\
+496 & 64,000 & 54.7 & 4,322 & 1,628 & 1,050 & 31.9 & 2,193 & 1,770 & 3,291 \\
+496 & 512,000 & 769.0$^{(3)}$ & 37,377 & 4,312 & 1,050 & 271.3 & 18,429 & 12,251 & 1,096 \\
+\bottomrule
+\end{tabular}
+\end{table}

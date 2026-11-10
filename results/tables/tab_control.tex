@@ -1,0 +1,27 @@
+\begin{table}[tbp]
+\caption{Limited sharing control, attention benchmarks at $M = 64{,}000$. The individual sampler of Section~\ref{sec:counting:sampler} takes single subsets spread evenly through the sorted order, so few prefixes are shared and the reuse ratio $\rho = N / F$ is close to $1$. Each run sampler row is the input of Table~\ref{tab:main_attention} at the same $n$ and $M$. $P$ is the number of subsets. Eager rows time calls launched kernel by kernel. Replay rows time one replay of a call captured once as a CUDA graph. Times are medians in milliseconds, and Speedup is Direct divided by Cache. The control also changes the subsets and the trie, so it does not isolate reuse. Control rows are not counted in any win count. Key names the fastest direct combination. Masked attention, mathematical backend, is a unchunked, b at chunk size $4{,}096$ and c at $1{,}024$. The default backend is d, e and f, and gathered attention is g, h and i, in the same chunk size order. Replay rows use a to f.}
+\label{tab:control}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{lrrr crrr crrr}
+\toprule
+ &  &  &  & \multicolumn{4}{c}{2080} & \multicolumn{4}{c}{H100} \\
+\cmidrule(lr){5-8} \cmidrule(lr){9-12}
+Subset selection & $n$ & $P$ & $\rho$ & Key & Cache & Direct & Speedup & Key & Cache & Direct & Speedup \\
+\midrule
+\multicolumn{12}{c}{\textit{Eager}} \\
+individual sampler & 300 & 64,000 & 0.9533 & b & 3,645 & 179.6 & 0.05 & e & 778.1 & 34.9 & 0.04 \\
+run sampler & 300 & 63,000 & 0.0070 & b & 77.5 & 177.4 & 2.29 & e & 41.3 & 34.0 & 0.83 \\
+\addlinespace
+individual sampler & 496 & 64,000 & 0.9719 & b & 5,947 & 262.2 & 0.04 & b & 1,299 & 49.9 & 0.04 \\
+run sampler & 496 & 59,520 & 0.0043 & b & 73.4 & 244.2 & 3.33 & b & 45.1 & 46.9 & 1.04 \\
+\midrule
+\multicolumn{12}{c}{\textit{Replay}} \\
+individual sampler & 300 & 64,000 & 0.9533 & b & OOM & 156.8 &  & d & 763.4 & 28.6 & 0.04 \\
+run sampler & 300 & 63,000 & 0.0070 & b & 74.0 & 156.6 & 2.12 & d & 13.7 & 28.1 & 2.06 \\
+\addlinespace
+individual sampler & 496 & 64,000 & 0.9719 & b & OOM & 231.7 &  & b & 1,282 & 44.7 & 0.03 \\
+run sampler & 496 & 59,520 & 0.0043 & b & 76.4 & 215.3 & 2.82 & b & 19.0 & 41.5 & 2.19 \\
+\bottomrule
+\end{tabular}
+\end{table}

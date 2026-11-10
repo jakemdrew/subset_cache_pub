@@ -1,0 +1,14 @@
+\begin{table}[tbp]
+\caption{Ceiling exclusions. Benchmarks in which a direct method's agreement call took longer than the $30$~s ceiling and was not timed. Smallest call is the shortest excluded call in milliseconds. Comparator is the fastest timed direct median of the same mode in milliseconds. Ratio is the smallest excluded call divided by Comparator and does not estimate the excluded median. In every row, the machine is the 2080, the subset selection is the run sampler, $n = 496$, $M = 512{,}000$, $\lambda = 10n$, the excluded methods are eager direct combinations, and 1 of 9 direct methods exceeded the ceiling.}
+\label{tab:ceiling}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrr}
+\toprule
+Benchmark & Smallest call & Comparator & Ratio \\
+\midrule
+attention & 31,262 & 1,982 & 15.78 \\
+training step & 31,301 & 2,227 & 14.05 \\
+\bottomrule
+\end{tabular}
+\end{table}

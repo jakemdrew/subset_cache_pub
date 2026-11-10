@@ -1,0 +1,29 @@
+\begin{table}[tbp]
+\caption{Replay setup and memory for the Replay rows of Tables~\ref{tab:main_attention} and~\ref{tab:main_step}. Setup is the one time graph warmup and capture in milliseconds, plus the mask transfer for Direct, all excluded from execution. Memory is the median peak GPU memory reserved during a replay, in MiB, which includes the graph's pool. It is not comparable with the allocated memory of Tables~\ref{tab:prep_attention} and~\ref{tab:prep_step}. OOM means cache replay ran out of memory. A blank Direct means no masked attention replay was timed. In every row, the requested run length is $\lambda = 10n$.}
+\label{tab:replay_setup}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{lrr rrrr rrrr}
+\toprule
+ &  &  & \multicolumn{4}{c}{2080} & \multicolumn{4}{c}{H100} \\
+\cmidrule(lr){4-7} \cmidrule(lr){8-11}
+ &  &  & \multicolumn{2}{c}{Setup, ms} & \multicolumn{2}{c}{Memory, MiB} & \multicolumn{2}{c}{Setup, ms} & \multicolumn{2}{c}{Memory, MiB} \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11}
+Benchmark & $n$ & $M$ & Cache & Direct & Cache & Direct & Cache & Direct & Cache & Direct \\
+\midrule
+attention & 300 & 64,000 & 426.1 & 704.2 & 2,080 & 1,684 & 244.1 & 185.9 & 2,176 & 4,254 \\
+attention & 300 & 128,000 & 600.3 & 1,181 & 4,110 & 2,734 & 240.3 & 352.1 & 4,196 & 8,396 \\
+attention & 300 & 256,000 & OOM & 2,186 & OOM & 4,968 & 298.8 & 488.4 & 7,780 & 16,862 \\
+attention & 300 & 512,000 & OOM &  & OOM &  & 434.1 & 847.7 & 16,482 & 33,660 \\
+attention & 496 & 64,000 & 441.4 & 895.8 & 2,070 & 1,982 & 280.3 & 239.7 & 2,158 & 2,172 \\
+attention & 496 & 128,000 & 613.8 & 1,621 & 3,932 & 2,858 & 281.6 & 406.2 & 4,028 & 3,048 \\
+attention & 496 & 256,000 & OOM & 3,086 & OOM & 4,792 & 360.0 & 761.4 & 10,344 & 4,950 \\
+attention & 496 & 512,000 & OOM &  & OOM &  & 574.3 & 1,474 & 16,776 & 9,038 \\
+\midrule
+training step & 300 & 64,000 & 646.3 & 932.8 & 2,288 & 1,218 & 317.8 & 285.6 & 2,538 & 4,642 \\
+training step & 300 & 512,000 & OOM & 5,050 & OOM & 1,456 & 644.5 & 1,032 & 18,278 & 32,446 \\
+training step & 496 & 64,000 & 674.1 & 1,135 & 2,606 & 1,448 & 367.7 & 338.2 & 2,814 & 13,348 \\
+training step & 496 & 512,000 & OOM & 8,267 & OOM & 1,094 & 689.2 & 1,889 & 18,534 & 2,228 \\
+\bottomrule
+\end{tabular}
+\end{table}

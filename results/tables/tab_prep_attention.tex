@@ -1,0 +1,24 @@
+\begin{table}[tbp]
+\caption{Preparation and memory for the attention benchmarks of Table~\ref{tab:main_attention}, same rows and order. Preparation is in milliseconds, each component the median of five repeats, blank if fewer completed. Input is synthetic input generation, $Q$, $K$, $V$ and $W$ from the seed, the same work for every method, reported once and excluded from the method columns. Cache and Direct are method preparation, the sum of the component medians the method needs, not an end to end timing. On these run sampler rows Cache is trie generation from the run descriptor by the successor rule, level plan construction and transfer to the GPU; the fixed size run and individual sampler rows of Tables~\ref{tab:boundary} and~\ref{tab:control} regenerate the subset list and build the trie from it. Direct is the subset list regenerated from the key and, for a masked attention comparator, the $P \times n$ mask on the CPU. Memory is the median peak GPU memory allocated during execution, in MiB. OOM means the cache ran out of memory. In every row, the requested run length is $\lambda = 10n$. On a row marked $(g)$ the cache ran over $g$ groups after its unchunked call ran out of memory. Its Cache preparation is a single timing, not a median of five, the one build of the $g$ group tries from the row's rank intervals with their plans and transfers; the interval reconstruction itself, microseconds, is outside that clock. Its memory is that of the grouped run.}
+\label{tab:prep_attention}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{rr rrrrr rrrrr}
+\toprule
+ &  & \multicolumn{5}{c}{2080} & \multicolumn{5}{c}{H100} \\
+\cmidrule(lr){3-7} \cmidrule(lr){8-12}
+ &  & \multicolumn{3}{c}{Preparation, ms} & \multicolumn{2}{c}{Memory, MiB} & \multicolumn{3}{c}{Preparation, ms} & \multicolumn{2}{c}{Memory, MiB} \\
+\cmidrule(lr){3-5} \cmidrule(lr){6-7} \cmidrule(lr){8-10} \cmidrule(lr){11-12}
+$n$ & $M$ & Input & Cache & Direct & Cache & Direct & Input & Cache & Direct & Cache & Direct \\
+\midrule
+300 & 64,000 & 2,651 & 57.8 & 2,828 & 1,599 & 1,005 & 3,078 & 33.9 & 1,344 & 1,645 & 683 \\
+300 & 128,000 & 5,041 & 115.5 & 5,687 & 3,155 & 1,465 & 5,906 & 65.6 & 2,865 & 3,200 & 1,144 \\
+300 & 256,000 & 10,181 & 248.2 & 11,489 & 6,169 & 2,411 & 11,883 & 127.9 & 5,533 & 6,215 & 2,089 \\
+300 & 512,000 & 20,264 & 651.0$^{(3)}$ & 23,128 & 6,672 & 4,279 & 24,548 & 281.6 & 11,739 & 12,167 & 3,957 \\
+496 & 64,000 & 2,446 & 55.7 & 4,298 & 1,549 & 1,282 & 2,876 & 40.1 & 2,265 & 1,596 & 1,329 \\
+496 & 128,000 & 5,044 & 118.8 & 9,042 & 3,110 & 1,754 & 5,935 & 70.7 & 4,732 & 3,157 & 1,802 \\
+496 & 256,000 & 10,161 & 255.2 & 18,536 & 6,109 & 2,699 & 11,903 & 128.9 & 9,122 & 6,157 & 2,746 \\
+496 & 512,000 & 20,481 & 787.6$^{(3)}$ & 37,401 & 6,639 & 4,588 & 23,750 & 269.7 & 18,626 & 12,093 & 4,635 \\
+\bottomrule
+\end{tabular}
+\end{table}
