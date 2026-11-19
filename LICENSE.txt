@@ -1,0 +1,16 @@
+Copyright (c) 2026 Jake Drew. All rights reserved.
+
+This repository accompanies the paper "A Key Value Cache for Exact Attention over Subsets".
+
+Permission is granted to download this repository and to run its contents for the sole purpose of
+verifying the results reported in that paper, with only the changes needed to run them on the user's
+own hardware. No other use is permitted without prior written permission from the copyright holder.
+No commercial use, no redistribution and no preparation of derivative works is permitted.
+
+No license under any patent or patent application is granted, whether expressly, by implication, by
+estoppel or otherwise.
+
+THE CONTENTS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM THE
+CONTENTS OR THEIR USE.

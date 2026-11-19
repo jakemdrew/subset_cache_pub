@@ -1,0 +1,20 @@
+\begin{table}[!htbp]
+\caption{Preparation and memory for the training step benchmarks of Table~\ref{tab:main_step}, same rows and order. Training step rows have no synthetic input generation, since the model and its state come from the file. Preparation is in milliseconds, each component the median of five repeats, blank if fewer completed. Cache and Direct are method preparation, the sum of the component medians the method needs, not an end to end timing. On these run sampler rows Cache is trie generation from the run descriptor by the successor rule, level plan construction and transfer to the GPU. The fixed size run and individual sampler rows of Tables~\ref{tab:boundary} and~\ref{tab:control} regenerate the subset list and build the trie from it. Direct is the subset list regenerated from the key and, for a masked attention comparator, the $P \times n$ mask on the CPU. Memory is the median peak GPU memory allocated during execution, in MiB. OOM means the cache ran out of memory. In every row, the requested run length is $\lambda = 10n$. On a row marked $(g)$ the cache ran over $g$ groups after its unchunked call ran out of memory. Its Cache preparation is a single timing, not a median of five, of the reconstruction of the row's rank intervals and the build of the $g$ group tries with their plans and transfers. Its memory is that of the grouped run.}
+\label{tab:prep_step}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{rr rrrr rrrr}
+\toprule
+ &  & \multicolumn{4}{c}{2080} & \multicolumn{4}{c}{H100} \\
+\cmidrule(lr){3-6} \cmidrule(lr){7-10}
+ &  & \multicolumn{2}{c}{Preparation, ms} & \multicolumn{2}{c}{Memory, MiB} & \multicolumn{2}{c}{Preparation, ms} & \multicolumn{2}{c}{Memory, MiB} \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-8} \cmidrule(lr){9-10}
+$n$ & $M$ & Cache & Direct & Cache & Direct & Cache & Direct & Cache & Direct \\
+\midrule
+300 & 64,000 & 55.8 & 2,869 & 1,659 & 696 & 28.4 & 1,067 & 1,807 & 3,365 \\
+300 & 512,000 & 653.6$^{(3)}$ & 23,386 & 4,197 & 695 & 203.2 & 8,581 & 12,177 & 25,576 \\
+496 & 64,000 & 53.3 & 4,441 & 1,634 & 1,052 & 24.2 & 1,658 & 1,770 & 3,289 \\
+496 & 512,000 & 782.2$^{(3)}$ & 37,663 & 4,312 & 1,050 & 217.0 & 14,156 & 12,250 & 26,051 \\
+\bottomrule
+\end{tabular}
+\end{table}

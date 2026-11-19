@@ -1,0 +1,25 @@
+\begin{table}[!htbp]
+\caption{Median execution time in milliseconds on the training step inputs.}
+\label{tab:main_step}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{rrrr crrr crrr}
+\toprule
+ &  &  &  & \multicolumn{4}{c}{2080} & \multicolumn{4}{c}{H100} \\
+\cmidrule(lr){5-8} \cmidrule(lr){9-12}
+$n$ & $M$ & $P$ & $\rho$ & Key & Cache & Direct & Speedup & Key & Cache & Direct & Speedup \\
+\midrule
+\multicolumn{12}{c}{\textit{Eager}} \\
+300 & 64,000 & 63,000 & 0.0070 & b & 105.6 & 216.9 & 2.05 & d & 53.5 & 44.4 & 0.83 \\
+300 & 512,000 & 510,000 & 0.0070 & b & 657.4$^{(3)}$ & 1,589 & 2.42 & d & 157.6 & 340.2 & 2.16 \\
+496 & 64,000 & 59,520 & 0.0042 & b & 112.5 & 289.0 & 2.57 & d & 55.9 & 64.6 & 1.15 \\
+496 & 512,000 & 510,880 & 0.0042 & b & 736.8$^{(3)}$ & 2,227 & 3.02 & d & 161.6 & 511.5 & 3.17 \\
+\midrule
+\multicolumn{12}{c}{\textit{Replay}} \\
+300 & 64,000 & 63,000 & 0.0070 & b & 84.0 & 189.1 & 2.25 & d & 21.9 & 36.0 & 1.64 \\
+300 & 512,000 & 510,000 & 0.0070 & b & OOM & 1,482 &  & d & 125.0 & 263.2 & 2.11 \\
+496 & 64,000 & 59,520 & 0.0042 & b & 84.7 & 254.6 & 3.00 & a & 27.0 & 51.1 & 1.89 \\
+496 & 512,000 & 510,880 & 0.0042 & b & OOM & 2,087 &  & b & 127.9 & 411.0 & 3.21 \\
+\bottomrule
+\end{tabular}
+\end{table}

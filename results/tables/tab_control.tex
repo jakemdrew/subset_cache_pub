@@ -1,0 +1,27 @@
+\begin{table}[!htbp]
+\caption{Limited sharing control, attention benchmarks at $M = 64{,}000$. The individual sampler of Section~\ref{sec:counting:sampler} takes single subsets spread evenly through the sorted order, so few prefixes are shared and the reuse ratio $\rho = N / F$ is close to $1$. Each run sampler row is the input of Table~\ref{tab:main_attention} at the same $n$ and $M$. $P$ is the number of subsets. Eager rows time calls launched kernel by kernel. Replay rows time one replay of a call captured once as a CUDA graph. Times are medians in milliseconds, and Speedup is Direct divided by Cache. The control also changes the subsets and the trie, so it does not isolate reuse. Control rows are not counted in any win count. Key names the fastest direct combination, by the letters of Section~\ref{sec:benchmarks:protocol}. Replay rows use a to f.}
+\label{tab:control}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{lrrr crrr crrr}
+\toprule
+ &  &  &  & \multicolumn{4}{c}{2080} & \multicolumn{4}{c}{H100} \\
+\cmidrule(lr){5-8} \cmidrule(lr){9-12}
+Subset selection & $n$ & $P$ & $\rho$ & Key & Cache & Direct & Speedup & Key & Cache & Direct & Speedup \\
+\midrule
+\multicolumn{12}{c}{\textit{Eager}} \\
+individual sampler & 300 & 64,000 & 0.9533 & b & 3,614 & 177.7 & 0.05 & d & 777.4 & 37.5 & 0.05 \\
+run sampler & 300 & 63,000 & 0.0070 & b & 75.3 & 177.8 & 2.36 & d & 45.9 & 37.0 & 0.81 \\
+\addlinespace
+individual sampler & 496 & 64,000 & 0.9719 & b & 5,961 & 262.1 & 0.04 & b & 1,289 & 52.2 & 0.04 \\
+run sampler & 496 & 59,520 & 0.0043 & b & 69.9 & 244.4 & 3.50 & b & 47.5 & 49.0 & 1.03 \\
+\midrule
+\multicolumn{12}{c}{\textit{Replay}} \\
+individual sampler & 300 & 64,000 & 0.9533 & b & OOM & 157.1 &  & d & 761.5 & 28.5 & 0.04 \\
+run sampler & 300 & 63,000 & 0.0070 & b & 50.1 & 156.4 & 3.12 & d & 13.7 & 28.1 & 2.05 \\
+\addlinespace
+individual sampler & 496 & 64,000 & 0.9719 & b & OOM & 231.9 &  & b & 1,284 & 44.5 & 0.03 \\
+run sampler & 496 & 59,520 & 0.0043 & b & 51.6 & 215.8 & 4.18 & b & 19.0 & 41.3 & 2.18 \\
+\bottomrule
+\end{tabular}
+\end{table}

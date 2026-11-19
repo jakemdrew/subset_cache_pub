@@ -1,0 +1,28 @@
+\begin{table}[!htbp]
+\caption{Preparation plus one eager execution on the inputs of Tables~\ref{tab:main_attention} and~\ref{tab:main_step}.}
+\label{tab:totals}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{lrr rrrr crrrr}
+\toprule
+ &  &  & \multicolumn{4}{c}{2080} & \multicolumn{5}{c}{H100} \\
+\cmidrule(lr){4-7} \cmidrule(lr){8-12}
+ &  &  & \multicolumn{3}{c}{Single clock} & \multicolumn{1}{c}{Sum} &  & \multicolumn{3}{c}{Single clock} & \multicolumn{1}{c}{Sum} \\
+\cmidrule(lr){4-6} \cmidrule(lr){7-7} \cmidrule(lr){9-11} \cmidrule(lr){12-12}
+Type & $n$ & $M$ & Cache & Direct & Ratio & Ratio & Key & Cache & Direct & Ratio & Ratio \\
+\midrule
+Attention & 300 & 64,000 & 122.3 & 3,493 & 28.56 & 23.39 & d & 92.1 & 1,321 & 14.35 & 15.32 \\
+Attention & 300 & 128,000 & 244.8 & 6,919 & 28.27 & 24.99 & d & 116.0 & 2,610 & 22.49 & 22.65 \\
+Attention & 300 & 256,000 & 638.8 & 13,660 & 21.38 & 19.15 & d & 170.4 & 5,218 & 30.63 & 29.04 \\
+Attention & 300 & 512,000 & 1,207$^{(3)}$ & 27,409 & 22.71 & 21.05 & d & 300.7 & 10,674 & 35.49 & 28.96 \\
+Attention & 496 & 64,000 & 125.5 & 5,167 & 41.19 & 36.84 & b & 102.9 & 2,087 & 20.28 & 23.80 \\
+Attention & 496 & 128,000 & 246.8 & 10,764 & 43.60 & 37.69 & b & 133.4 & 4,371 & 32.76 & 33.89 \\
+Attention & 496 & 256,000 & 584.8 & 21,572 & 36.89 & 33.00 & b & 197.8 & 8,926 & 45.12 & 45.74 \\
+Attention & 496 & 512,000 & 1,320$^{(3)}$ & 43,959 & 33.31 & 30.24 & e & 318.2 & 18,344 & 57.64 & 48.10 \\
+Training step & 300 & 64,000 & 167.6 & 3,600 & 21.48 & 19.12 & d & 98.4 & 1,288 & 13.10 & 13.56 \\
+Training step & 300 & 512,000 & 1,341$^{(3)}$ & 27,497 & 20.50 & 19.05 & d & 341.6 & 10,666 & 31.22 & 24.73 \\
+Training step & 496 & 64,000 & 159.3 & 5,262 & 33.03 & 28.53 & d & 108.8 & 2,143 & 19.70 & 21.50 \\
+Training step & 496 & 512,000 & 1,698$^{(3)}$ & 44,214 & 26.04 & 26.26 & d & 358.8 & 18,265 & 50.90 & 38.74 \\
+\bottomrule
+\end{tabular}
+\end{table}
